@@ -9,3 +9,16 @@ before_install:
 script:
   - docker run -e CI=true kaurkaelep/docker-react npm run test -- --coverage
   # "-- --coverage" makes "npm run test" exit when test suite is completed
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "docker-react"
+  env: "Dockerreact-env"
+  bucket_name: "elasticbeanstalk-us-east-2-535315856553"
+  bucket_path: "docker-react"
+  on:
+    branch: main
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
