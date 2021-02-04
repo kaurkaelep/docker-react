@@ -1,0 +1,11 @@
+sudo: required
+language: generic
+services:
+  - docker
+
+before_install:
+  - docker build -t kaurkaelep/docker-react -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true kaurkaelep/docker-react npm run test -- --coverage
+  # "-- --coverage" makes "npm run test" exit when test suite is completed
